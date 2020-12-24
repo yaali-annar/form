@@ -1,20 +1,25 @@
-import React from 'react'
-import { string, bool, node, oneOf } from 'prop-types'
-import { useField } from 'formik'
-import { cx } from '@emotion/css'
+import React from "react";
+import { string, bool, node, oneOf } from "prop-types";
+import { useField } from "formik";
+import { cx } from "@emotion/css";
 
-const FieldWrapper = ({ children, className: classNameFromProps, label, name, disabled, explanation }) => {
-  const [, { error, touched }] = useField({ name })
+const FieldWrapper = ({
+  children,
+  className: classNameFromProps,
+  label,
+  name,
+  disabled,
+  explanation,
+}) => {
+  const [, { error, touched }] = useField({ name });
 
-  const errorMessage = touched ? error : ''
-  const info = errorMessage || explanation || ''
+  const errorMessage = touched ? error : "";
+  const info = errorMessage || explanation || "";
 
-  const className = cx(
-    'form-field',
-    classNameFromProps, {
+  const className = cx("form-field", classNameFromProps, {
     error: !!errorMessage,
-    disabled
-  })
+    disabled,
+  });
 
   return (
     <div {...{ className }}>
@@ -24,16 +29,17 @@ const FieldWrapper = ({ children, className: classNameFromProps, label, name, di
         {info && <div className="explanation">{info}</div>}
       </div>
     </div>
-  )
-}
+  );
+};
 
 FieldWrapper.propTypes = {
   children: node,
+  className: string,
   disabled: bool,
   explanation: string,
   label: string.isRequired,
   name: string.isRequired,
   rawExplanation: oneOf([string, node]),
-}
+};
 
-export default FieldWrapper
+export default FieldWrapper;
